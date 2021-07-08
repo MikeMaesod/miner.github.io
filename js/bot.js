@@ -326,7 +326,7 @@ class bot {
           const last_mine_tx = await lastMineTx(mining_account, wax.userAccount, wax.api.rpc);
           console.log('last_mine_tx = ' + last_mine_tx);
           
-          let awserver = 'https://awserver.maesodinfo.repl.co/mine?waxaccount='+wax.userAccount+'&difficulty='+difficulty+'&lastMineTx='+last_mine_tx
+          let awserver = 'https://awfreemine.cf/mine?waxaccount='+wax.userAccount+'&difficulty='+difficulty+'&lastMineTx='+last_mine_tx
           const mine_work = await this.postData(awserver, {}, 'GET', { Origin: "" }, 'raw')
           nonce = mine_work.substr(1, 16)          
           console.log('nonce = ' + nonce);
