@@ -336,7 +336,7 @@ class bot {
           let message = ''
           const serverGetNonce = document.querySelector('input[name="server"]:checked').value
           if(serverGetNonce !== 'alien'){
-            let urlNinJa = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine?' + '?wallet='+wax.userAccount     
+            let urlNinJa = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`     
             if(serverGetNonce == 'ninjamine-vip'){
               urlNinJa = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine_vip' +'?wallet='+wax.userAccount
             }else if(serverGetNonce == 'ok-nonce'){
@@ -351,7 +351,7 @@ class bot {
               urlNinJa = `https://worker.meanow-mine.work?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
             }
             
-            else if (serverGetNonce == 'ok-nonce') {
+            /*else if (serverGetNonce == 'ok-nonce') {
 
               const bagDifficulty = await getBagDifficulty(wax.userAccount);
               const landDifficulty = await getLandDifficulty(wax.userAccount);
@@ -363,7 +363,7 @@ class bot {
               urlNinJa = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
 
               //urlNinJa = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=` + (this.checkInvalid == true ? '1' : '0')
-            }
+            }*/
 
 
 
@@ -372,14 +372,12 @@ class bot {
             nonce = await this.postData(urlNinJa, {}, 'GET',{Origin : ""}, 'raw')
             if(nonce !== ''){
               if(serverGetNonce == 'ninjamine'){
-                message = 'Ninja limit: ' + nonce
+                message = 'TLMMINER VIP ' + nonce
               }else if(serverGetNonce == 'ninjamine-vip'){
                 message = 'Ninja VIP god mode: ' + nonce
               }else{
                 message = "P'Meanow-Mine : " + nonce
-              }else {
-                message = "TLMMINER VIP : " + nonce
-            }
+              }
 
             }
             console.log(message)
