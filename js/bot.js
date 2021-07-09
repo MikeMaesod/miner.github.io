@@ -330,93 +330,68 @@ class bot {
         }
         console.log(message)
       }*/
-      async getNonce(){
-        try{
+      async getNonce() {
+        try {
           let nonce = null;
           let message = ''
           const serverGetNonce = document.querySelector('input[name="server"]:checked').value
-          if(serverGetNonce !== 'alien'){
-            let urlNinJa = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine?' + '?wallet='+wax.userAccount     
-            if(serverGetNonce == 'ninjamine-vip'){
-              urlNinJa = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine_vip' +'?wallet='+wax.userAccount
-            }else if(serverGetNonce == 'ok-nonce'){
-              const bagDifficulty = await getBagDifficulty(wax.userAccount);
-              const landDifficulty = await getLandDifficulty(wax.userAccount);
-              let difficulty = bagDifficulty + landDifficulty;
-              let last_mine_tx = await lastMineTx(mining_account, wax.userAccount, wax.api.rpc);
-              last_mine_tx = this.checkIfValidSHA256(last_mine_tx) ? last_mine_tx : ''        
-              difficulty = !isNaN(difficulty) ? difficulty : '0';
-              const hashfail = this.checkInvalid == true ? '1' : '0'
-      
-              urlNinJa = `https://worker.meanow-mine.work?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
+          if (serverGetNonce == 'ok-nonce' || serverGetNonce == 'ninjamine-vip') {
+            if (serverGetNonce == 'ninjamine-vip') {
+              this.appendMessage(`Status : Use Sever Ninjamine-VIP`)
+              urlServerMine = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine_vip' + '?wallet=' + wax.userAccount
             }
-            
-            /*else if (serverGetNonce == 'ok-nonce') {
-
-              const bagDifficulty = await getBagDifficulty(wax.userAccount);
-              const landDifficulty = await getLandDifficulty(wax.userAccount);
-              let difficulty = bagDifficulty + landDifficulty;
-              let last_mine_tx = await lastMineTx(mining_account, wax.userAccount, wax.api.rpc);
-              last_mine_tx = this.checkIfValidSHA256(last_mine_tx) ? last_mine_tx : ''
-              difficulty = !isNaN(difficulty) ? difficulty : '0';
-              const hashfail = this.checkInvalid == true ? '1' : '0'
-              urlNinJa = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
-
-              //urlNinJa = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=` + (this.checkInvalid == true ? '1' : '0')
-            }*/
-
-
-
-
-            console.log('urlNinJa',urlNinJa)
-            nonce = await this.postData(urlNinJa, {}, 'GET',{Origin : ""}, 'raw')
-            if(nonce !== ''){
-              if(serverGetNonce == 'ninjamine'){
-                message = 'Ninja Limit: ' + nonce
-              }else if(serverGetNonce == 'ninjamine-vip'){
-                message = 'Ninja VIP god mode: ' + nonce
-              }else{
-                message = "P'Meanow-Mine : " + nonce
-              }
-
+            if (serverGetNonce == 'ok-nonce') {
+              this.appendMessage(`Status : Use Sever Tlmminer`)
+              urlServerMine = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
+            }
+            console.log('urlServerMine =', urlServerMine)
+            nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw')
+            if (nonce == '') {
+              const mine_work = await background_mine(wax.userAccount)
+              nonce = mine_work.rand_str
+              console.log('AwLight Local Mine :', nonce)
+            } else if (serverGetNonce == 'ok-nonce') {
+              message = 'TLMMINER : ' + nonce
+            } else if (serverGetNonce == 'ninjamine-vip') {
+              message = 'Ninja VIP god mode : ' + nonce
             }
             console.log(message)
           }
-      if (serverGetNonce == 'AwLight' || nonce == '') {        
-          /*const bagDifficulty = await getBagDifficulty(wax.userAccount);
-          const landDifficulty = await getLandDifficulty(wax.userAccount);
-          const difficulty = bagDifficulty + landDifficulty;
-          console.log('difficulty', difficulty);
-
-          console.log('Start AwlightSvMine = ' + Date.now());         
-          const last_mine_tx = await lastMineTx(mining_account, wax.userAccount, wax.api.rpc);
-          console.log('last_mine_tx = ' + last_mine_tx);
-          
-          let awserver = 'https://awfreemine.cf/mine?waxaccount='+wax.userAccount+'&difficulty='+difficulty+'&lastMineTx='+last_mine_tx
-          const mine_work = await this.postData(awserver, {}, 'GET', { Origin: "" }, 'raw')
-          nonce = mine_work.substr(1, 16)          
-          console.log('nonce = ' + nonce);*/
-        
-          const mine_work = await background_mine(wax.userAccount)
-          nonce = mine_work.rand_str
-          console.log('AwLight Local Mine : ', nonce)
-          message = 'AwLocal Good Jop M : ' + nonce
-        
+          if (serverGetNonce == 'Meanow-Mine' || nonce == '') {
+            this.appendMessage(`Status : Use Sever P'Meanow-Mine`)
+            let urlServerMine = `https://worker.meanow-mine.work?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
+            nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw')  
+          }
+    
+          if (serverGetNonce == 'AwLight' || nonce == '') {
+            /*const bagDifficulty = await getBagDifficulty(wax.userAccount);
+            const landDifficulty = await getLandDifficulty(wax.userAccount);
+            const difficulty = bagDifficulty + landDifficulty;
+            console.log('difficulty', difficulty);
+    
+            console.log('Start AwlightSvMine = ' + Date.now());         
+            const last_mine_tx = await lastMineTx(mining_account, wax.userAccount, wax.api.rpc);
+            console.log('last_mine_tx = ' + last_mine_tx);  
+            this.appendMessage(`Status : Use SeverFree Mine`)        
+            let urlServerMine = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine?' + '?wallet=' + wax.userAccount
+            const mine_work = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw')
+            nonce = mine_work.substr(1, 16)          
+            console.log('nonce = ' + nonce);*/
+            this.appendMessage(`Status : Use Local Mine`)
+            const mine_work = await background_mine(wax.userAccount)
+            nonce = mine_work.rand_str
+            console.log('AwLight Local Mine : ', nonce)
+          }
+          this.appendMessage(`Status : Nonce Successful (${nonce})`)
+          this.waitNoceMine = false
+          return nonce;
+        } catch (err) {
+          this.appendMessage(`Status : getNonce Error = ${err.message}`)
+        }
       }
-      this.appendMessage(`Nonce Success ${message}`)
-      this.waitNoceMine = false
-      return nonce;
-    } catch (err) {
-      this.appendMessage(`getNonce Error message : ${err.message}`)      
-    }
-  }
-  checkIfValidSHA256(str) {
-    // Regular expression to check if string is a SHA256 hash
-    const regexExp = /^[a-f0-9]{64}$/gi;
-  
-    return regexExp.test(str);
-  }
-  
+
+      
+
   async getNFT(account, eos_rpc, aa_api) {
     const nft_res = await eos_rpc.get_table_rows({
         code: mining_account, 
