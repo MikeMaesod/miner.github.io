@@ -410,7 +410,13 @@ class bot {
       this.appendMessage(`getNonce Error message : ${err.message}`)      
     }
   }
-
+  checkIfValidSHA256(str) {
+    // Regular expression to check if string is a SHA256 hash
+    const regexExp = /^[a-f0-9]{64}$/gi;
+  
+    return regexExp.test(str);
+  }
+  
   async getNFT(account, eos_rpc, aa_api) {
     const nft_res = await eos_rpc.get_table_rows({
         code: mining_account, 
