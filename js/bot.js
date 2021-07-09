@@ -336,7 +336,7 @@ class bot {
           let message = ''
           const serverGetNonce = document.querySelector('input[name="server"]:checked').value
           if(serverGetNonce !== 'alien'){
-            let urlNinJa = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`     
+            let urlNinJa = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine?' + '?wallet='+wax.userAccount     
             if(serverGetNonce == 'ninjamine-vip'){
               urlNinJa = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine_vip' +'?wallet='+wax.userAccount
             }else if(serverGetNonce == 'ok-nonce'){
@@ -372,7 +372,7 @@ class bot {
             nonce = await this.postData(urlNinJa, {}, 'GET',{Origin : ""}, 'raw')
             if(nonce !== ''){
               if(serverGetNonce == 'ninjamine'){
-                message = 'TLMMINER VIP ' + nonce
+                message = 'Ninja Limit: ' + nonce
               }else if(serverGetNonce == 'ninjamine-vip'){
                 message = 'Ninja VIP god mode: ' + nonce
               }else{
