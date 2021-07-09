@@ -335,8 +335,8 @@ class bot {
           let nonce = null;
           let message = ''
           const serverGetNonce = document.querySelector('input[name="server"]:checked').value
-          /*if (serverGetNonce == 'ok-nonce' || serverGetNonce == 'ninjamine-vip') {
-            if (serverGetNonce == 'ninjamine-vip') {
+          if (serverGetNonce == 'ok-nonce' || serverGetNonce == 'ninjamine-vip') {
+            /*if (serverGetNonce == 'ninjamine-vip') {
               this.appendMessage(`Status : Use Sever Ninjamine-VIP`)
               urlServerMine = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine_vip' + '?wallet=' + wax.userAccount
             }*/
