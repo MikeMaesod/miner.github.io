@@ -343,9 +343,13 @@ class bot {
             if (serverGetNonce == 'ok-nonce'  || nonce == '') {
               this.appendMessage(`Status : Use Sever Tlmminer`)
               urlServerMine = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
+<<<<<<< HEAD
               nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw') 
             }
 
+=======
+            }
+>>>>>>> parent of 76f5d24 (P'Maew OK Edit TLM New)
             console.log('urlServerMine =', urlServerMine)
             nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw')
             if (nonce == '') {
