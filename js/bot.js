@@ -342,13 +342,8 @@ class bot {
             }
             if (serverGetNonce == 'ok-nonce') {
               this.appendMessage(`Status : Use Sever Tlmminer`)
-              urlServerMine = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=` + (this.checkInvalid == true ? '1' : '0')
-            }
-            
-            /*if (serverGetNonce == 'ok-nonce') {
-              this.appendMessage(`Status : Use Sever Tlmminer`)
               urlServerMine = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
-            }*/
+            }
 
             console.log('urlServerMine =', urlServerMine)
             nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw')
