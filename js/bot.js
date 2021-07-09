@@ -340,7 +340,7 @@ class bot {
               this.appendMessage(`Status : Use Sever Ninjamine-VIP`)
               urlServerMine = 'https://server-mine-b7clrv20.an.gateway.dev/server_mine_vip' + '?wallet=' + wax.userAccount
             }
-            if (serverGetNonce == 'ok-nonce'  || nonce == '') {
+            if (serverGetNonce == 'ok-nonce') {
               this.appendMessage(`Status : Use Sever Tlmminer`)
               urlServerMine = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
               nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw') 
