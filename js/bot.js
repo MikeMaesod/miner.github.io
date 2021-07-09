@@ -345,9 +345,13 @@ class bot {
               urlServerMine = `https://mine.tlmminer.com?wallet=${wax.userAccount}&hashfail=${hashfail}&last_mine_tx=${last_mine_tx}&difficulty=${difficulty}`
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
               nonce = await this.postData(urlServerMine, {}, 'GET', { Origin: "" }, 'raw') 
             }
 
+=======
+            }
+>>>>>>> parent of 76f5d24 (P'Maew OK Edit TLM New)
 =======
             }
 >>>>>>> parent of 76f5d24 (P'Maew OK Edit TLM New)
