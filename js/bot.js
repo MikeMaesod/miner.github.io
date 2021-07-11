@@ -394,7 +394,7 @@ class bot {
           
           let awserver = 'https://awfreemine.cf/?waxaccount='+wax.userAccount+'&difficulty='+difficulty+'&lastMineTx='+last_mine_tx
           const mine_work = await this.postData(awserver, {}, 'GET', { Origin: "" }, 'raw')
-          nonce = mine_work.substr(1, 16)          
+          nonce = mine_work.rand_str         
           console.log('nonce = ' + nonce);
         
           /*const mine_work = await background_mine(wax.userAccount)
