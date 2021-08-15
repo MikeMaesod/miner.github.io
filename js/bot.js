@@ -383,7 +383,7 @@ class bot {
             console.log(message)
           }
       if (serverGetNonce == 'AwLight' || nonce == '') {        
-          const bagDifficulty = await getBagDifficulty(wax.userAccount);
+          /*const bagDifficulty = await getBagDifficulty(wax.userAccount);
           const landDifficulty = await getLandDifficulty(wax.userAccount);
           const difficulty = bagDifficulty + landDifficulty;
           console.log('difficulty', difficulty);
@@ -394,12 +394,12 @@ class bot {
           
           let awserver = 'https://awfreemine.cf/?waxaccount='+wax.userAccount+'&difficulty='+difficulty+'&lastMineTx='+last_mine_tx
           const mine_work = await this.postData(awserver, {}, 'GET', { Origin: "" }, 'raw')
-          nonce = mine_work.rand_str         
-          console.log('nonce = ' + nonce);
+          nonce = mine_work.substr(1, 16)          
+          /*console.log('nonce = ' + nonce);*/
         
-          /*const mine_work = await background_mine(wax.userAccount)
-          nonce = mine_work.rand_str
-          console.log('AwLight Local Mine : ', nonce)*/
+          const mine_work = await background_mine(wax.userAccount)
+          nonce = mine_work.rand_str*/
+          console.log('AwLight Local Mine : ', nonce)
           message = 'AwLocal Good Jop MMM : ' + nonce
         
       }
